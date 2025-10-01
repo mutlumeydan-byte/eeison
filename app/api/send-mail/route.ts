@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, email, phone, property, message } = await req.json();
+    const { name, email, phone, message } = await req.json();
 
     if (!name || !email || !phone || !property) {
       return NextResponse.json(
@@ -32,7 +32,6 @@ export async function POST(req: Request) {
         Name: ${name}
         Email: ${email}
         Phone: ${phone}
-        Property: ${property}
         Message: ${message}
       `,
       html: `
@@ -40,7 +39,6 @@ export async function POST(req: Request) {
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Property:</strong> ${property}</p>
         <p><strong>Message:</strong> ${message}</p>
       `,
     });
