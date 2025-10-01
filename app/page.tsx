@@ -1,10 +1,10 @@
-import Navbar from '@/components/Navbar';
-import Hero from '@/components/Hero';
-import Packages from '@/components/Packages';
-import WhyChooseUs from '@/components/WhyChooseUs';
-import Testimonials from '@/components/Testimonials';
-import ContactForm from '@/components/ContactForm';
-import Footer from '@/components/Footer';
+import Navbar from '@/components/landing/Navbar';
+import Hero from '@/components/landing/Hero';
+import Packages from '@/components/landing/Packages';
+import WhyChooseUs from '@/components/landing/WhyChooseUs';
+import Testimonials from '@/components/landing/Testimonials';
+import ContactForm from '@/components/landing/ContactForm';
+import Footer from '@/components/landing/Footer';
 
 export default function Page() {
   return (
