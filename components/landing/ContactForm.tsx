@@ -42,7 +42,7 @@ export default function ContactForm() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showError, setShowError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  
+
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -99,12 +99,13 @@ export default function ContactForm() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/send-mail', {
+      const response = await fetch(`${window.location.origin}/api/send-mail`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          handoverDate: '' // backend opsiyonel alan
+        }),
       });
 
       const data = await response.json();
@@ -124,6 +125,7 @@ export default function ContactForm() {
         setShowError(true);
       }
     } catch (error) {
+      console.error(error);
       setErrorMessage('Network error. Please check your connection and try again.');
       setShowError(true);
     } finally {
@@ -159,20 +161,6 @@ export default function ContactForm() {
               </div>
 
               <div className="p-8 md:p-12">
-                <div className="mb-8">
-                  <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
-                    <span className={step >= 1 ? 'text-amber-500 font-semibold' : ''}>
-                      Step 1: Contact Info
-                    </span>
-                    <span className={step >= 2 ? 'text-amber-500 font-semibold' : ''}>
-                      Step 2: Property Details
-                    </span>
-                    <span className={step >= 3 ? 'text-amber-500 font-semibold' : ''}>
-                      Step 3: Additional Info
-                    </span>
-                  </div>
-                </div>
-
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {step === 1 && (
                     <div className="space-y-6 animate-in fade-in duration-300">
@@ -187,9 +175,7 @@ export default function ContactForm() {
                           className="bg-[#0f0f1e] border-gray-700 text-white focus:border-amber-500 h-12"
                           placeholder="Enter your full name"
                         />
-                        {errors.name && (
-                          <p className="text-red-500 text-sm mt-1">{errors.name}</p>
-                        )}
+                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
                       </div>
 
                       <div>
@@ -204,9 +190,7 @@ export default function ContactForm() {
                           className="bg-[#0f0f1e] border-gray-700 text-white focus:border-amber-500 h-12"
                           placeholder="your.email@example.com"
                         />
-                        {errors.email && (
-                          <p className="text-red-500 text-sm mt-1">{errors.email}</p>
-                        )}
+                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
                       </div>
 
                       <div>
@@ -221,9 +205,7 @@ export default function ContactForm() {
                           className="bg-[#0f0f1e] border-gray-700 text-white focus:border-amber-500 h-12"
                           placeholder="+971 50 123 4567"
                         />
-                        {errors.phone && (
-                          <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-                        )}
+                        {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
                       </div>
                     </div>
                   )}
@@ -242,28 +224,15 @@ export default function ContactForm() {
                             <SelectValue placeholder="Select property type" />
                           </SelectTrigger>
                           <SelectContent className="bg-[#1a1a2e] border-gray-700">
-                            <SelectItem value="apartment" className="text-white hover:bg-amber-500/20">
-                              Apartment
-                            </SelectItem>
-                            <SelectItem value="premium-apartment" className="text-white hover:bg-amber-500/20">
-                              Premium Apartment
-                            </SelectItem>
-                            <SelectItem value="villa" className="text-white hover:bg-amber-500/20">
-                              Villa
-                            </SelectItem>
-                            <SelectItem value="penthouse" className="text-white hover:bg-amber-500/20">
-                              Penthouse
-                            </SelectItem>
-                            <SelectItem value="townhouse" className="text-white hover:bg-amber-500/20">
-                              Townhouse
-                            </SelectItem>
+                            <SelectItem value="apartment" className="text-white hover:bg-amber-500/20">Apartment</SelectItem>
+                            <SelectItem value="premium-apartment" className="text-white hover:bg-amber-500/20">Premium Apartment</SelectItem>
+                            <SelectItem value="villa" className="text-white hover:bg-amber-500/20">Villa</SelectItem>
+                            <SelectItem value="penthouse" className="text-white hover:bg-amber-500/20">Penthouse</SelectItem>
+                            <SelectItem value="townhouse" className="text-white hover:bg-amber-500/20">Townhouse</SelectItem>
                           </SelectContent>
                         </Select>
-                        {errors.property && (
-                          <p className="text-red-500 text-sm mt-1">{errors.property}</p>
-                        )}
+                        {errors.property && <p className="text-red-500 text-sm mt-1">{errors.property}</p>}
                       </div>
-
                     </div>
                   )}
 
