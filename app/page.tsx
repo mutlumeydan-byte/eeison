@@ -1,26 +1,21 @@
-'use client';
+import Navbar from '@/components/Navbar';
+import Hero from '@/components/Hero';
+import Packages from '@/components/Packages';
+import WhyChooseUs from '@/components/WhyChooseUs';
+import Testimonials from '@/components/Testimonials';
+import ContactForm from '@/components/ContactForm';
+import Footer from '@/components/Footer';
 
-import { LanguageProvider } from '@/lib/LanguageContext';
-import Navbar from '@/components/landing/Navbar';
-import Hero from '@/components/landing/Hero';
-import Packages from '@/components/landing/Packages';
-import WhyChooseUs from '@/components/landing/WhyChooseUs';
-import Testimonials from '@/components/landing/Testimonials';
-import ContactForm from '@/components/landing/ContactForm';
-import Footer from '@/components/landing/Footer';
-
-export default function Home() {
+export default function Page() {
   return (
-    <LanguageProvider>
-      <main className="min-h-screen bg-[#0a0a0f]">
-        <Navbar />
-        <Hero />
-        <Packages />
-        <WhyChooseUs />
-        <Testimonials />
-        <ContactForm />
-        <Footer />
-      </main>
-    </LanguageProvider>
+    <main className="bg-[#0a0a0f] text-white">
+      <Navbar />
+      <Hero />
+      <Packages />
+      <WhyChooseUs />
+      <Testimonials />
+      <ContactForm />
+      <Footer />
+    </main>
   );
 }
