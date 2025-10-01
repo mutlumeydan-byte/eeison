@@ -25,7 +25,6 @@ interface FormData {
   name: string;
   email: string;
   phone: string;
-  property: string;
   message: string;
 }
 
@@ -33,7 +32,6 @@ interface FormErrors {
   name?: string;
   email?: string;
   phone?: string;
-  property?: string;
 }
 
 export default function ContactForm() {
@@ -47,7 +45,6 @@ export default function ContactForm() {
     name: '',
     email: '',
     phone: '',
-    property: '',
     message: ''
   });
 
@@ -73,11 +70,7 @@ export default function ContactForm() {
       } else if (!/^\+?[\d\s-()]+$/.test(formData.phone)) {
         newErrors.phone = 'Please enter a valid phone number';
       }
-    }
-
-    if (step === 2) {
-      if (!formData.property) newErrors.property = 'Property type is required';
-    }
+    
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -100,7 +93,7 @@ export default function ContactForm() {
 
     try {
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL || ''}/api/send-mail`,
+        `${process.env.Local || ''}/api/send-mail`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -116,7 +109,6 @@ export default function ContactForm() {
           name: '',
           email: '',
           phone: '',
-          property: '',
           message: ''
         });
         setStep(1);
